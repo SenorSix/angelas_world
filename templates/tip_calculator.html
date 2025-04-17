@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/tip_calculator.css" >
+    <title>Tip Calculator</title>
+</head>
+<body>
+    <p>Tip Calculator</p>
+    <h1>
+        <form action="/tip_info" method="post" id="tip_form">
+            <label for="bill">What is the total bill?</label>
+            <input type="text" id="bill" name="bill"><br><br>
+            <label for="tip_percentage">What percentage tip do you want to leave?</label>
+            <input type="text" id="tip_percentage" name="tip_percentage"><br><br>
+            <label for="people">How many people are splitting the bill?</label>
+            <input type="text" id="people" name="people">
+            <input type="submit" value="Submit">
+        </form>
+    </h1>
+    <br><br><br>
+    <h2>
+        <!-- Makes field blank -->
+        {% if bill_per_person %}
+        {{bill_per_person}}
+        {% endif %}
+        <!-- Makes field blank -->
+    </h2>
+    <form action="/reset_tip" method="get" style="display: inline;">
+        <input type="submit" value="Reset">
+    </form>
+
+
+
+    <br><br><br>
+        <h3><a href="{{ url_for('start') }}">Back to Angela's World</a></h3>
+
+    <script>
+        // Get the form elements
+        const billInput = document.getElementById('bill');
+        const tipPercentageInput = document.getElementById('tip_percentage');
+        const peopleInput = document.getElementById('people');
+        const form = document.getElementById('tip_form');
+
+        // Add event listener for the bill input
+        billInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                tipPercentageInput.focus(); // Move focus to the tip_percentage input
+            }
+        });
+
+        tipPercentageInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                peopleInput.focus(); // Move focus to the people input
+            }
+        });
+
+        // Add event listener for the people input
+        peopleInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                form.submit(); // Submit the form
+            }
+        });
+    </script>
+    
+</body>
+</html>
+
